@@ -11,6 +11,8 @@ import com.akash.job_tracker.dto.JobApplicationRequestDTO;
 import com.akash.job_tracker.dto.JobApplicationResponseDTO;
 import com.akash.job_tracker.service.JobApplicationService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/applications")
 public class JobApplicationController {
@@ -28,7 +30,7 @@ public class JobApplicationController {
     // Create application
     @PostMapping
     public ResponseEntity<JobApplicationResponseDTO> createApplication(
-            @RequestBody JobApplicationRequestDTO request) {
+            @Valid @RequestBody JobApplicationRequestDTO request) {
 
         JobApplicationResponseDTO response =
                 jobApplicationService.createApplication(TEST_USER_ID, request);
@@ -57,11 +59,10 @@ public class JobApplicationController {
     @PutMapping("/{id}")
     public ResponseEntity<JobApplicationResponseDTO> updateApplication(
             @PathVariable Long id,
-            @RequestBody JobApplicationRequestDTO request) {
+            @Valid @RequestBody JobApplicationRequestDTO request) {
 
         return ResponseEntity.ok(
-                jobApplicationService.updateApplication(
-                        TEST_USER_ID, id, request));
+                jobApplicationService.updateApplication(TEST_USER_ID, id, request));
     }
 
     // Delete application

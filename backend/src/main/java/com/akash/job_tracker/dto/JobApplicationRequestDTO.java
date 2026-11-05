@@ -3,19 +3,46 @@ package com.akash.job_tracker.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class JobApplicationRequestDTO {
 
-    private String companyName;
-    private String jobTitle;
-    private LocalDate applicationDate;
-    private String status;
-    private String employmentType;
-    private String location;
-    private String jobUrl;
-    private BigDecimal salaryMin;
-    private BigDecimal salaryMax;
-    private String currencyCode;
-    private String notes;
+	@NotBlank(message = "Company name is required")
+	@Size(max = 150, message = "Company name cannot exceed 150 characters")
+	private String companyName;
+
+	@NotBlank(message = "Job title is required")
+	@Size(max = 150, message = "Job title cannot exceed 150 characters")
+	private String jobTitle;
+
+	@NotNull(message = "Application date is required")
+	private LocalDate applicationDate;
+
+	@Size(max = 30, message = "Status cannot exceed 30 characters")
+	private String status;
+
+	@Size(max = 30, message = "Employment type cannot exceed 30 characters")
+	private String employmentType;
+
+	@Size(max = 150, message = "Location cannot exceed 150 characters")
+	private String location;
+
+	@Size(max = 1000, message = "Job URL cannot exceed 1000 characters")
+	private String jobUrl;
+
+	@DecimalMin(value = "0.0", message = "Minimum salary cannot be negative")
+	private BigDecimal salaryMin;
+
+	@DecimalMin(value = "0.0", message = "Maximum salary cannot be negative")
+	private BigDecimal salaryMax;
+
+	@Size(min = 3, max = 3, message = "Currency code must contain exactly 3 characters")
+	private String currencyCode;
+
+	private String notes;
 
     public JobApplicationRequestDTO() {
     }
